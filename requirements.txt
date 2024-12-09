@@ -1,0 +1,39 @@
+# Packages used in the project (from pip)
+pyads==3.4.2
+numpy==1.24.0
+open3d==0.18.0
+concave_hull==0.0.8
+pyransac3d==0.6.0
+matplotlib==3.5.1
+pandas==2.2.3
+scikit_learn==1.5.2
+scipy==1.8.0
+
+## Packages detected by pyreqs which were not installed through pip. 
+## These may come included in other packages 
+# rosbags==0.10.4
+# ament_copyright==0.12.11
+# ament_flake8==0.12.11
+# ament_index_python==1.4.0
+# ament_pep257==0.12.11
+# builtin_interfaces==1.2.1
+# geometry_msgs==4.2.4
+# hypothesis==6.122.3
+# joblib==1.4.2
+# launch_ros==0.19.7
+# launch_testing==1.0.6
+# moveit_configs_utils==2.5.5
+# pytest==6.2.5
+# PyYAML==5.4.1
+# PyYAML==6.0.2
+# rcl_interfaces==1.2.1
+# rclpy==3.3.14
+# sensor_msgs==4.2.4
+# setuptools==58.2.0
+# setuptools==59.6.0
+# std_msgs==4.2.4
+# std_srvs==4.2.4
+# tf2_ros_py==0.25.8
+# trajectory_msgs==4.2.4
+# visualization_msgs==4.2.4
+# xacro==2.0.8
