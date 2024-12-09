@@ -1,0 +1,56 @@
+repositories:
+
+  data_gathering:
+    type: git
+    url: https://github.com/Luka140/data_gathering
+    version: main
+
+  data_gathering_msgs:
+    type: git
+    url: https://github.com/Luka140/data_gathering_msgs
+    version: main
+
+  rws_motion_client:
+    type: git
+    url: https://github.com/Luka140/rws_motion_client
+    version: main
+
+  ur_trajectory_controller:
+    type: git
+    url: https://github.com/Luka140/ur_trajectory_controller
+    version: main
+
+  lls_processing:
+    type: git
+    url: https://github.com/Luka140/lls_processing
+    version: main
+
+  pcl_processing_ros2:
+    type: git
+    url: https://github.com/panin-ananwa/pcl_processing_ros2
+    version: main
+
+  scancontrol:
+    type: git
+    url: https://github.com/Luka140/scancontrol
+    version: ros2-devel
+
+  stamped_std_msgs:
+    type: git
+    url: https://github.com/Luka140/stamped_std_msgs
+    version: main
+
+  bag_converter:
+    type: git
+    url: https://github.com/Luka140/bag_converter
+    version: main
+
+  grinder_model:
+    type: git
+    url: https://github.com/panin-ananwa/grinder_model
+    version: main
+
+  ferrobotics_acf:
+    type; git
+    url: https://github.com/Luka140/ferrobotics_acf
+    version: humble 
