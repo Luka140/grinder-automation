@@ -69,3 +69,6 @@ To build all the packages, follow below sequence because some repositories are d
 colcon build --packages-select stamped_std_msgs
 colcon build --symlink-install
 ```
+
+
+For more information on the usage, Check out https://github.com/Luka140/data_gathering
