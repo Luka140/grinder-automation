@@ -48,16 +48,24 @@ sudo apt update
 sudo apt install python3-vcstool
 ```
 
-Then, put the .repos file in your workspace folder, and navigate to your workspace source folder (e.g., ~/workspace_folder/src) 
-and run:
+Then, navigate to your workspace source folder (e.g., ~/workspace_folder/src)
 ```bash
-vcs import < .repos
+cd src
 ```
+
+clone this repositories to your workspace source folder
+and run vcs import using the path to the `.repos` file, for example the author workspace name is 'BrightSkyRepoLinux':
+```bash
+git clone https://github.com/Luka140/grinder-automation.git
+vcs import < /workspaces/BrightSkyRepoLinux/src/grinder-automation/.repos
+```
+
+NOTE: For robot-arm mounted grinding test setup, check out moving-grinder branch of this repository.
+
 
 To build all the packages, follow below sequence because some repositories are dependent on the ROS2 message type repositories
 
 ```bash
 colcon build --packages-select stamped_std_msgs
-colcon build --packages-select abb_robot_msgs
 colcon build --symlink-install
 ```
