@@ -1,0 +1,4 @@
+# packages to install from apt. One per line.
+
+nano
+ros-humble-turtlebot3-gazebo
