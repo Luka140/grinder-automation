@@ -8,14 +8,17 @@ This repository contains instructions and necesssary files for setting up a work
 # grinder-automation Repositories
 The `.repos` file contain references to all repositories required to operate either stationary grinding tests or robot-arm mounted grinding tests.
 The following are the repositories that will be installed using `.repos`: 
-- [`ferrobotics_acf`](https://github.com/Luka140/ferrobotics_acf/tree/humble): Controls the ACF
+- [`data_gathering`](https://github.com/Luka140/data_gathering): Contain main launch file for the test, and control the grinder
 - [`stamped_std_msgs`](https://github.com/Luka140/stamped_std_msgs/tree/main): Stamped standard messages for data storage
-- [`data_gatherin_msgs`](https://github.com/Luka140/data_gathering_msgs): Additional msgs
+- [`data_gathering_msgs`](https://github.com/Luka140/data_gathering_msgs): Additional msgs
 - [`ur_trajectory_controller`](https://github.com/Luka140/ur_trajectory_controller): Controls the UR16e
 - [`scancontrol`](https://github.com/Luka140/scancontrol/tree/ros2-devel): ROS2 Driver for Scancontrol laser line scanners
 - [`lls_processing`](https://github.com/Luka140/lls_processing): Compiles 3D pointcloud reconstructions based on TF transfers
 - [`pcl_processing_ros2`](https://github.com/panin-anan/pcl_processing_ros2/tree/main): Used to calculate volume loss between two scans
 - [`Universal_Robots_ROS2_Driver`](https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver/tree/humble): Driver for the UR16e
+- [`ferrobotics_acf`](https://github.com/Luka140/ferrobotics_acf/tree/humble): Controls the ACF
+- [`grinder_model`](https://github.com/panin-anan/grinder_model): Python script for training and evaluating predictive model with test data
+- [`bag_converter`](https://github.com/Luka140/bag_converter): Python script for postprocessing test data from rosbag into .csv data
 
 
 # grinder-automation Dependencies
