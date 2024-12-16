@@ -18,7 +18,7 @@ repositories:
   ur_trajectory_controller:
     type: git
     url: https://github.com/Luka140/ur_trajectory_controller
-    version: main
+    version: master
 
   lls_processing:
     type: git
@@ -51,6 +51,6 @@ repositories:
     version: main
 
   ferrobotics_acf:
-    type; git
+    type: git
     url: https://github.com/Luka140/ferrobotics_acf
     version: humble 
