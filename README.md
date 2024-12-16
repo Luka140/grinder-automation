@@ -5,7 +5,6 @@ Todo add third party pkgs installed through apt, like abb driver, ur driver.
 ## Overview
 This repository contains instructions and necesssary files for setting up a workspace to perform automated testing of material removal using a pneumatic grinder. 
 
-
 # grinder-automation Repositories
 The `.repos` file contain references to all repositories required to operate either stationary grinding tests or robot-arm mounted grinding tests.
 The following are the repossitories and dependencies that will be installed: 
@@ -36,16 +35,15 @@ sudo apt update
 sudo apt install python3-vcstool
 ```
 
-Put the .repos file
+Put the .repos file in your workspace folder, then navigate to your workspace source folder (e.g., ~/workspace_folder/src) 
+and run:
+```bash
+vcs import < .repos
+```
 
-git clone git@github.com:Luka140/data_gathering.git
-git clone git@github.com:Luka140/ferrobotics_acf.git -b humble
-git clone git@github.com:Luka140/stamped_std_msgs.git
-git clone git@github.com:Luka140/data_gathering_msgs.git
-git clone git@github.com:Luka140/ur_trajectory_controller.git
-git clone git@github.com:Luka140/scancontrol.git -b ros2-devel
-git clone git@github.com:Luka140/lls_processing.git
-git clone git@github.com:panin-anan/pcl_processing_ros2.git
+
+
+
 sudo apt-get install ros-humble-ur
 sudo apt-get install ros-humble-rosbag2-storage-mcap
 
