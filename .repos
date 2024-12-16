@@ -27,7 +27,7 @@ repositories:
 
   pcl_processing_ros2:
     type: git
-    url: https://github.com/panin-ananwa/pcl_processing_ros2
+    url: https://github.com/panin-anan/pcl_processing_ros2
     version: main
 
   scancontrol:
@@ -47,7 +47,7 @@ repositories:
 
   grinder_model:
     type: git
-    url: https://github.com/panin-ananwa/grinder_model
+    url: https://github.com/panin-anan/grinder_model
     version: main
 
   ferrobotics_acf:
