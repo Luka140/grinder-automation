@@ -7,7 +7,7 @@ This repository contains instructions and necesssary files for setting up a work
 
 # grinder-automation Repositories
 The `.repos` file contain references to all repositories required to operate either stationary grinding tests or robot-arm mounted grinding tests.
-The following are the repossitories and dependencies that will be installed: 
+The following are the repositories that will be installed using `.repos`: 
 - [`ferrobotics_acf`](https://github.com/Luka140/ferrobotics_acf/tree/humble): Controls the ACF
 - [`stamped_std_msgs`](https://github.com/Luka140/stamped_std_msgs/tree/main): Stamped standard messages for data storage
 - [`data_gatherin_msgs`](https://github.com/Luka140/data_gathering_msgs): Additional msgs
@@ -27,23 +27,12 @@ The `requirement.txt` lists all dependencies required for all the repositories o
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
 
+see Installation section for installation instructions
+
 ## Installation
 
-First update your version control system tool
-```bash
-sudo apt update
-sudo apt install python3-vcstool
+To install the dependencies
 ```
-
-Put the .repos file in your workspace folder, then navigate to your workspace source folder (e.g., ~/workspace_folder/src) 
-and run:
-```bash
-vcs import < .repos
-```
-
-
-
-
 sudo apt-get install ros-humble-ur
 sudo apt-get install ros-humble-rosbag2-storage-mcap
 
@@ -53,73 +42,22 @@ pip install numpy==1.24.0
 pip install pyransac3d==0.6.0
 ```
 
-
-## Launch
-To launch use 
+To install the repositories, first, update your version control system tool
 ```bash
-ros2 launch data_gathering data_gathering.launch.py
+sudo apt update
+sudo apt install python3-vcstool
 ```
-This launch file is used to set all the test settings. 
 
+Then, put the .repos file in your workspace folder, and navigate to your workspace source folder (e.g., ~/workspace_folder/src) 
+and run:
+```bash
+vcs import < .repos
+```
 
-## Nodes
-### data_collector
-A node that connects to the PLC with grinder, and sends commands to the ACF node. It performs a grind for a requested force, RPM, and contact duration.
-Parameters:
-- `plc_target_ams`: AMS ID of the PLC.
-- `plc_target_ip`: IP address of the PLC.
-- `timeout_time`: Maximum time allowed before timeout.
-- `time_before_extend`: Time delay before ACF extension to allow the grinder to spin up.
-- `rpm_control_var`: Name of variable which controls the RPM through PLC.
-- `grinder_on_var`: Name of variable for turning the grinder on/off.
-- `grinder_enabled`: Bool that enables or disables the grinder.
-- `time_var`: Name of variable for PLC timestamps.
-- `max_acf_extension`: Maximum allowed ACF extension.
+To build all the packages, follow below sequence because some repositories are dependent on the ROS2 message type repositories
 
-Topics:
-- `/acf/force` [Float32Stamped](https://github.com/Luka140/stamped_std_msgs/blob/main/msg/Float32Stamped.msg): Publishes the force applied during grinding.
-- `~/rpm` [Int32Stamped](https://github.com/Luka140/stamped_std_msgs/blob/main/msg/Int32Stamped.msg): Publishes the grinder's actual RPM. Solely for logging purposes.
-- `~/requested_rpm` [Int32Stamped](https://github.com/Luka140/stamped_std_msgs/blob/main/msg/Int32Stamped.msg): Publishes the requested RPM. Solely for logging purposes.
-- `~/timesync` [TimeSync](https://github.com/Luka140/stamped_std_msgs/blob/main/msg/TimeSync.msg): Publishes time synchronization messages between ROS and PLC.
-
- - `/acf/telem` [ACFTelemStamped](https://github.com/Luka140/ferrobotics_acf/blob/humble/msg/ACFTelemStamped.msg): Subscribes to ACF telemetry, handling force and position data.
-
-Services:
-- `~/execute_test` [TestRequest](https://github.com/Luka140/data_gathering_msgs/blob/main/srv/TestRequest.srv): Starts a test by setting force, RPM, and contact duration. It handles RPM control, ACF engagement, monitoring grinder performance, and managing shutdown sequences on test completion or failure.
-
-
-### test_coordinator
-A node that cycles through the tests specified in the launch file. It coordinates the grinds, scans, volume calculations, and data recording. 
-
-Parameters:
-- `force_settings`: list of force settings for the queued tests
-- `rpm_settings`: list of RPM settings for the queued tests
-- `contact_time_settings`: list of contact time settings for the queued tests
-- `grit`: the grit of the sanding belt - for logging purposes
-- `sample`: handle/name by which to identify the tests - for logging purposes
-- `plate_thickness`: the thickness of the plate in mm. 
-
-- `belt_prime_force`: the force setting at which to prime a new belt
-- `belt_prime_rpm`: the RPM setting at which to prime a new belt
-- `belt_prime_time`: the time setting at which to prime a new belt
-- `initial_prime`: bool to indicate whether a prime run needs to be performed before the first queued test
-- `wear_threshold`: the threshold of the belt wear indicator after which the belt needs to be changed
-
-- `data_path`: path to the data storage location
-- `wear_tracking_path`: path to the storage location of the belt run history to calculate wear
-- `test_tracker_path`: path to file which tracks all tests that have been run
-- `record_path`: path to rosbag storage
-
-
-Topics:
-- `user/continue_testing` [Empty]: Send Empty msg to this topic to continue testing when prompted
-- `user/changed_belt` [Empty]: Send Empty msg to this topic to confirm you have changed the belt when prompted
-  
-- `~/test_failure` [String]: Publishes a message indicating that a test has failed and why for logging purposes.
-- `~/belt_wear_history` [BeltWearHistory](https://github.com/Luka140/data_gathering_msgs/blob/main/msg/BeltWearHistory.msg): Publishes the belt wear on the currently tracked belt for logging purposes
-- `~/grind_area` [GrindArea](https://github.com/Luka140/data_gathering_msgs/blob/main/msg/GrindArea.msg): Publishes the grinder contact area size for logging purposes
-- `~/volume`[Float32Stamped](https://github.com/Luka140/stamped_std_msgs/blob/main/msg/Float32Stamped.msg): Publishes the removed volume for logging purposes
-    
-Clients:
-- `execute_loop` [RequestPCL](https://github.com/Luka140/data_gathering_msgs/blob/main/srv/RequestPCL.srv): Requests a scan of the test object
-- `calculate_volume_lost` [RequestPCLVolumeDiff](https://github.com/Luka140/data_gathering_msgs/blob/main/srv/RequestPCLVolumeDiff.srv): Requests the comparison of two pointclouds and the calculation of lost volume.
+```bash
+colcon build --packages-select stamped_std_msgs
+colcon build --packages-select abb_robot_msgs
+colcon build --symlink-install
+```
