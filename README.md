@@ -24,7 +24,7 @@ CAUTION: `rws_motion_client` is a repository for moving grinder on a robot, and 
 
 
 # grinder-automation Dependencies
-The `requirement.txt` lists all dependencies required for all the repositories outlined in the `.repos` file:
+The `requirement.txt` and `setup.sh` contains all dependencies required for all the repositories outlined in the `.repos` file:
 
 - `ros-humble-rosbag2-storage-mcap`: Enabled MCAP storage format for rosbags
 - `open3d`: for pointcloud operations. Note that the used (and currently latest) version requires Numpy < 1.25. Used in `pcl_processing_ros2` and `lls_processing`.
@@ -32,7 +32,7 @@ The `requirement.txt` lists all dependencies required for all the repositories o
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
 
-Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup.sh` from this repo (WIP) or 
+Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup.sh` from this repo or 
 through SAMXL Brightsky workspace setup procedure following this url using internship-luka branch: https://gitlab.tudelft.nl/samxl/projects/brightsky/brightsky-ws.git
 
 - [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
