@@ -19,10 +19,14 @@ The following are the repositories that will be installed using `.repos`:
 - [`ferrobotics_acf`](https://github.com/Luka140/ferrobotics_acf/tree/humble): Controls the ACF
 - [`grinder_model`](https://github.com/panin-anan/grinder_model): Python script for training and evaluating predictive model with test data
 - [`bag_converter`](https://github.com/Luka140/bag_converter): Python script for postprocessing test data from rosbag into .csv data
+- [`rws_motion_client`](https://github.com/Luka140/rws_motion_client): Driver for the ABB robot.
+
+CAUTION: `rws_motion_client` is a repository for moving grinder on a robot, and for grinder on a robot, the following repositories also need to be checked out in moving-grinder branch: 
+`data_gathering`, `data_gathering_msgs`, `pcl_processing_ros2`, `grinder_model`, and `bag_converter`. For stationary grinding, exclude rws_motion_client from building.
 
 
 # grinder-automation Dependencies
-The `requirement.txt` lists all dependencies required for all the repositories outlined in the `.repos` file.
+The `requirement.txt` lists all dependencies required for all the repositories outlined in the `.repos` file:
 
 - `ros-humble-rosbag2-storage-mcap`: Enabled MCAP storage format for rosbags
 - `open3d`: for pointcloud operations. Note that the used (and currently latest) version requires Numpy < 1.25. Used in `pcl_processing_ros2` and `lls_processing`.
