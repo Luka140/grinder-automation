@@ -1,7 +1,5 @@
 # grinder-automation
 
-Todo add third party pkgs installed through apt, like abb driver, ur driver.
-
 ## Overview
 This repository contains instructions and necesssary files for setting up a workspace to perform automated testing of material removal using a pneumatic grinder. 
 
