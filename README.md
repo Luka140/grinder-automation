@@ -40,6 +40,12 @@ through SAMXL Brightsky workspace setup procedure following this url using inter
 - [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
 - [`scancontrol Linux SDK 1.0.0`](https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
 
+To install aravis and scancontrol SDK with `setup.sh`:
+
+```bash
+chmod +x $DEV_WORKSPACE/src/grinder-automation/setup.sh 
+$DEV_WORKSPACE/src/grinder-automation/setup.sh 
+```
 
 see Installation section for installation instructions
 
