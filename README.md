@@ -37,8 +37,8 @@ The `requirement.txt` lists all dependencies required for all the repositories o
 Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup.sh` from this repo (WIP) or 
 through SAMXL Brightsky workspace setup procedure following this url using internship-luka branch: https://gitlab.tudelft.nl/samxl/projects/brightsky/brightsky-ws.git
 
-- aravis 0.8.30 (https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
-- scancontrol Linux SDK 1.0.0 (https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
+- [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
+- [`scancontrol Linux SDK 1.0.0`](https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
 
 
 see Installation section for installation instructions
