@@ -1,38 +1,57 @@
 # packages to install from apt. One per line.
 
-# Common tools
-curl \
-gnupg2 \
-lsb-release \
-sudo \
-software-properties-common \
-wget \
-ros-humble-joint-state-publisher \
-bash-completion \
-build-essential \
-cmake \
-gdb \
-git \
-openssh-client \
-python3-argcomplete \
-python3-pip \
-ros-dev-tools \
-ros-humble-ament-* \
-vim \
-ccache \
-python3-rosdep \
-alsa-utils \
-python3-vcstools \
-python3-colcon-common-extensions \
-python3-colcon-clean \
-liblttng-ust-dev \
-terminator \
-ros-humble-desktop \
-unzip \
-libxml2-dev cmake libusb-1.0-0-dev gobject-introspection \
-libgtk-3-dev gtk-doc-tools  xsltproc libgstreamer1.0-dev \
-libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
-libgirepository1.0-dev gettext \
-autotools-dev automake intltool libtool \
-meson \
-ninja-build \
+# Essential Tools
+curl
+gnupg2
+lsb-release
+sudo
+software-properties-common
+wget
+bash-completion
+build-essential
+cmake
+gdb
+git
+python3-pip
+python3-argcomplete
+
+# ROS2 Development Tools
+ros-dev-tools
+ros-humble-ament-*
+ros-humble-joint-state-publisher
+ros-humble-desktop
+
+# Python Development Tools
+python3-rosdep
+python3-vcstools
+python3-colcon-common-extensions
+python3-colcon-clean
+
+# Debugging and Utilities
+ccache
+terminator
+
+# System Libraries
+liblttng-ust-dev
+alsa-utils
+unzip
+libxml2-dev
+libusb-1.0-0-dev
+
+# GTK and GStreamer Libraries (required for Aravis and ScanCONTROL)
+libgtk-3-dev
+gtk-doc-tools
+xsltproc
+libgstreamer1.0-dev
+libgstreamer-plugins-base1.0-dev
+libgstreamer-plugins-good1.0-dev
+libgirepository1.0-dev
+gettext
+
+# Build System Tools (required for Aravis and ScanCONTROL)
+autotools-dev
+automake
+intltool
+libtool
+meson
+ninja-build
