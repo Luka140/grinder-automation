@@ -40,7 +40,7 @@ APT_PACKAGES_FILE="${SCRIPTPATH}/.pkglist"
 ###############################
 # apt packages
 sudo apt-get update -qq
-
+sudo apt dist-upgrade
 
 if [[ ! -f $APT_PACKAGES_FILE ]]; then
 
