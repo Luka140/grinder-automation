@@ -32,18 +32,11 @@ The `requirement.txt` and `setup.sh` contains all dependencies required for all 
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
 
-Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup.sh` from this repo or 
+Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup_scancontrol.sh` from this repo or 
 through SAMXL Brightsky workspace setup procedure following this url using internship-luka branch: https://gitlab.tudelft.nl/samxl/projects/brightsky/brightsky-ws.git
 
 - [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
 - [`scancontrol Linux SDK 1.0.0`](https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
-
-To install aravis and scancontrol SDK with `setup.sh`:
-
-```bash
-chmod +x $DEV_WORKSPACE/src/grinder-automation/setup.sh 
-$DEV_WORKSPACE/src/grinder-automation/setup.sh 
-```
 
 see Installation section for installation instructions
 
@@ -58,6 +51,12 @@ pip install pyads==3.4.2
 pip install open3d==0.18.0
 pip install numpy==1.24.0
 pip install pyransac3d==0.6.0
+```
+
+To install aravis and scancontrol SDK with `setup_scancontrol.sh`:
+
+```bash
+$DEV_WORKSPACE/src/grinder-automation/setup_scancontrol.sh 
 ```
 
 To install the repositories, first, update your version control system tool
