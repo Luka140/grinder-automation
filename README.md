@@ -4,7 +4,7 @@
 This repository contains instructions and necesssary files for setting up a workspace to perform automated testing of material removal using a pneumatic grinder. 
 
 # grinder-automation Repositories
-The `.repos` file contain references to all repositories required to operate either stationary grinding tests or robot-arm mounted grinding tests.
+The `.repos` file contain references to all repositories (excluding dependencies) required to operate either stationary grinding tests or robot-arm mounted grinding tests.
 The following are the repositories that will be installed using `.repos`: 
 - [`data_gathering`](https://github.com/Luka140/data_gathering): Contain main launch file for the test, and control the grinder
 - [`stamped_std_msgs`](https://github.com/Luka140/stamped_std_msgs/tree/main): Stamped standard messages for data storage
