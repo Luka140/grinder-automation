@@ -20,20 +20,22 @@ The following are the repositories that will be installed using `.repos`:
 - [`rws_motion_client`](https://github.com/Luka140/rws_motion_client): Client node controlling ABB robot arm motion using the ABB robot driver: (`abb_ros2`).
 
 CAUTION: `rws_motion_client` is a repository for moving grinder on a robot, and for grinder on a robot, the following repositories also need to be checked out in moving-grinder branch: 
-`data_gathering`, `data_gathering_msgs`, `pcl_processing_ros2`, `grinder_model`, and `bag_converter`. For stationary grinding, exclude rws_motion_client from building.
+`data_gathering`, `data_gathering_msgs`, `pcl_processing_ros2`, `grinder_model`, and `bag_converter`.
 
 
 # grinder-automation Dependencies
-The `requirement.txt` and `setup.sh` contains all dependencies required for all the repositories outlined in the `.repos` file:
+The `requirement.txt` and `.pkglist` contains all python and apt dependencies required for all the repositories outlined in the `.repos` file:
 
 - `ros-humble-rosbag2-storage-mcap`: Enabled MCAP storage format for rosbags
 - `open3d`: for pointcloud operations. Note that the used (and currently latest) version requires Numpy < 1.25. Used in `pcl_processing_ros2` and `lls_processing`.
 - `libsdl2-dev`: Simple DirectMedia Layer(SDL) 2.0 for keyboard repository
-- `keyboard_msgs`: keyboard ROS2 messages for UR trajectory recording. Used in `ur_trajectory_controller`. Installation instruction uses a fork created by Luka140
 - [`pyads`](https://github.com/stlehmann/pyads): A Python wrapper for TwinCAT ADS library. Used in `data_gathering`
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
-- `abb_ros2`: ABB robot ROS2 driver. Used in `rws_motion_client`
+
+For the grinder_automation repositories to work, the following Third party repositories are also required to be built:
+- `keyboard_msgs`: keyboard ROS2 messages for UR trajectory recording. Used in `ur_trajectory_controller`. Installation instruction uses a fork created by Luka140
+- `abb_ros2`: ABB robot ROS2 driver. Used in `rws_motion_client`. Installation instruction uses a fork created by panin-anan
 
 Aside from above dependencies, the following third party packages are also required to be installed as dependencies by using `setup_scancontrol.sh` on your docker.
 
@@ -46,20 +48,13 @@ see Installation section for installation instructions
 
 To install the dependencies
 ```
-sudo apt update
-sudo apt-get install ros-humble-ur
-sudo apt-get install ros-humble-rosbag2-storage-mcap
-sudo apt-get install libsdl2-dev
-
+$DEV_WORKSPACE/src/grinder-automation/setup.sh 
 cd src
 git clone https://github.com/Luka140/ros2-keyboard.git
 git clone https://github.com/panin-anan/abb_ros2.git -b humble
+vcs import < abb_ros2/abb.repos
+rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
 cd ..
-
-pip install pyads==3.4.2
-pip install open3d==0.18.0
-pip install numpy==1.24.0
-pip install pyransac3d==0.6.0
 ```
 
 To install aravis and scancontrol SDK with `setup_scancontrol.sh`:
@@ -68,13 +63,7 @@ To install aravis and scancontrol SDK with `setup_scancontrol.sh`:
 $DEV_WORKSPACE/src/grinder-automation/setup_scancontrol.sh 
 ```
 
-To install the repositories, first, update your version control system tool
-```bash
-sudo apt update
-sudo apt install python3-vcstool
-```
-
-Then, navigate to your workspace source folder (e.g., ~/workspace_folder/src)
+To install the repositories, navigate to your workspace source folder again (e.g., ~/workspace_folder/src)
 ```bash
 cd src
 ```
@@ -82,16 +71,8 @@ cd src
 clone this repositories to your workspace source folder
 and run vcs import using the path to the `.repos` file, for example the author workspace name is 'BrightSkyRepoLinux':
 ```bash
-sudo apt update
-sudo apt dist-upgrade
-rosdep update
-cd src
-vcs import < abb_ros2/abb.repos
-rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
-
 git clone https://github.com/Luka140/grinder-automation.git
 vcs import < /workspaces/BrightSkyRepoLinux/src/grinder-automation/.repos
-
 ```
 
 NOTE: For robot-arm mounted grinding test setup, check out moving-grinder branch of this repository.
