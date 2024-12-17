@@ -62,16 +62,16 @@ fi
 # install all packages in the APT_PACKAGES_FILE.
 # grep will strip any lines starting with # (comments)
 # -r will prevent the apt-get call from being run at all if the file does not contain any non-whitespace characters.
-
-grep -e '^[^#]' "${APT_PACKAGES_FILE}" | xargs -r sudo apt-get install -y -qq --no-install-recommends
+echo "Installing apt packages..."
+grep -e '^[^#]' "${APT_PACKAGES_FILE}" | xargs -r sudo apt-get install -y --no-install-recommends
 
 ###############################
 # update the rosdep database
-rosdep -q update  --rosdistro "${TARGET_ROS_DISTRO}"
+rosdep -v update  --rosdistro "${TARGET_ROS_DISTRO}"
 
 ###############################
 # Python packages
-
+echo "Installing python packages..."
 if [[ ! -f $PYTHON_REQS_FILE ]]; then
 
     echo "Specified PYTHON_REQS_FILE not found. Aborting."
@@ -98,4 +98,4 @@ if [[ ${PYTHON_USE_VENV} == true ]]; then
 
 fi
 
-pip3 install -q -r "${PYTHON_REQS_FILE}"
+pip3 install -v -r "${PYTHON_REQS_FILE}"
