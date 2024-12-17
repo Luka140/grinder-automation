@@ -86,8 +86,18 @@ colcon build --packages-select stamped_std_msgs
 colcon build --symlink-install
 ```
 
-
 For more information on the usage, Check out https://github.com/Luka140/data_gathering
+
+## Hardware setup
+This grinder-automation repository works with the following hardware setup for an automated grind:
+
+- PLC computer: CX8190 from [`Beckhoff Automation`](https://www.beckhoff.com/en-en/products/ipc/embedded-pcs/cx8100-arm-r-cortex-r-a9/cx8190.html)
+- Universal Robot Arm: UR16e from [`Universal Robots`](https://www.universal-robots.com/products/ur16e/)
+- Active Contact Flange: ACF-K from [`Ferrobotics`](https://www.ferrobotics.com/en/services/products/active-contact-flange-kit/)
+- Laser Line Scanner: scanControl 29x0 from [`micro-epsilon`](https://www.micro-epsilon.com/2d-3d-measurement/laser-profile-scanners/scancontrol-29x0/?sLang=en) 
+- ABB Robot Arm: (for moving grinder) ABB IRB-1200 from [`ABB Robotics`](https://new.abb.com/products/robotics/robots/articulated-robots/irb-1200)
+
+PLC computer also contains extra IO Field Buses as necessary to connect to a [`flow control valve`](https://www.festo.com/us/en/a/8041715/), which controls the flow rate and RPM of the [`Dynafile`](https://www17.dynabrade.com/get-manual.php?c=PD01.73R) grinding power tool
 
 ## Test Run Example
 
