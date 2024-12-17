@@ -32,8 +32,7 @@ The `requirement.txt` and `setup.sh` contains all dependencies required for all 
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
 
-Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup_scancontrol.sh` from this repo or 
-through SAMXL Brightsky workspace setup procedure following this url using internship-luka branch: https://gitlab.tudelft.nl/samxl/projects/brightsky/brightsky-ws.git
+Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup_scancontrol.sh`
 
 - [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
 - [`scancontrol Linux SDK 1.0.0`](https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
@@ -89,3 +88,27 @@ colcon build --symlink-install
 
 
 For more information on the usage, Check out https://github.com/Luka140/data_gathering
+
+## Test Run Example
+
+First, source installed packages
+```bash
+source install/setup.bash
+```
+
+Before running the entire system, we can check each component by launching the following drivers one by one:
+
+```bash
+ros2 launch ur_trajectory_controller ur_driver.launch.py
+ros2 launch ferrobotics_acf acf.launch.py
+ros2 launch micro_epsilon_scancontrol_driver load_driver.launch.py
+```
+
+When all components are confirmed to be connectable, launch with data_gathering launch file with the following launch parameters:
+
+```bash
+ros2 launch data_gathering data_gathering.launch.py
+```
+
+
+
