@@ -101,6 +101,11 @@ This grinder-automation repository works with the following hardware setup for a
 
 PLC computer also contains extra IO Field Buses as necessary to connect to a [`flow control valve`](https://www.festo.com/us/en/a/8041715/), which controls the flow rate and RPM of the [`Dynafile`](https://www17.dynabrade.com/get-manual.php?c=PD01.73R) grinding power tool
 
+A picture showing an example of automated grinding test setup is shown below:
+![image](https://github.com/user-attachments/assets/56cc4d65-385c-4056-988d-3063d739c19c)
+
+
+
 ## Test Run Example
 
 First, source installed packages
