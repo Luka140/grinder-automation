@@ -20,6 +20,8 @@ ros-dev-tools
 ros-humble-ament-*
 ros-humble-joint-state-publisher
 ros-humble-desktop
+ros-humble-ur
+ros-humble-rosbag2-storage-mcap
 
 # Python Development Tools
 python3-rosdep
@@ -37,6 +39,7 @@ alsa-utils
 unzip
 libxml2-dev
 libusb-1.0-0-dev
+libsdl2-dev
 
 # GTK and GStreamer Libraries (required for Aravis and ScanCONTROL)
 libgtk-3-dev
