@@ -53,7 +53,7 @@ sudo apt-get install libsdl2-dev
 
 cd src
 git clone https://github.com/Luka140/ros2-keyboard.git
-git clone https://github.com/panin-anan/abb_ros2.git
+git clone https://github.com/panin-anan/abb_ros2.git -b humble
 cd ..
 
 pip install pyads==3.4.2
@@ -82,8 +82,16 @@ cd src
 clone this repositories to your workspace source folder
 and run vcs import using the path to the `.repos` file, for example the author workspace name is 'BrightSkyRepoLinux':
 ```bash
+sudo apt update
+sudo apt dist-upgrade
+rosdep update
+cd src
+vcs import < abb_ros2/abb.repos
+rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+
 git clone https://github.com/Luka140/grinder-automation.git
 vcs import < /workspaces/BrightSkyRepoLinux/src/grinder-automation/.repos
+
 ```
 
 NOTE: For robot-arm mounted grinding test setup, check out moving-grinder branch of this repository.
@@ -92,8 +100,11 @@ NOTE: For robot-arm mounted grinding test setup, check out moving-grinder branch
 To build all the packages, follow below sequence because some repositories are dependent on the ROS2 message type repositories
 
 ```bash
-colcon build --packages-select stamped_std_msgs
-colcon build --symlink-install
+colcon build --packages-select stamped_std_msgs --symlink-install
+colcon build --packages-skip rws_motion_client --symlink-install
+source install/setup.bash
+colcon build --packages-select rws_motion_client --symlink-install
+source install/setup.bash
 ```
 
 For more information on the usage, Check out https://github.com/Luka140/data_gathering
