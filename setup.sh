@@ -1,47 +1,101 @@
+#! /bin/bash
+set -e # exit script on non-zero return code
+
+SCRIPT_VERSION="2.1.10" # Toggle PREFERRED_REMOTE_DISPLAY and overriding locale
+# 2.1.9 Toggle for venv; add local python location to path, nicer help formatting
+# 2.1.8 change location of ENV settings from ~/.bashrc to using $DEV_ENV_SETTINGS_FILE
+# 2.1.7 ssh key juggling added to compose hacks
+# 2.1.6 Toggle for nasty SMACC minimal checkout from old script added
+# 2.1.5 Toggle for nasty Docker Compose fixes added
+# 2.1.4 ROS2 / ROS1 compatibility
+# 2.1.3 dynamically get the location of the default dep files. Removed project name.
+# 2.1.2 changed default location of dependency files
+# 2.1.1 project name extracted as variable
+# 2.1 - ROS2 variant
+
+# Default settings for params
+BUILD=true
+TARGET_WORKSPACE=""
+DEPENDENCIES_WORKSPACE="/home/ros/dependencies_ws"
+UNDERLAY_WORKSPACE="/home/ros/underlay_ws"
+TARGET_ROS_TYPE=$ROS_VERSION
+TARGET_ROS_DISTRO=$ROS_DISTRO
+
+NASTY_FIXES_FOR_COMPOSE=false
+SMACC_CLIENT_SUBSET=false
+USE_PREFERRED_REMOTE_DISPLAY=false
+OVERRIDE_LOCALE=false
+
+# Find location of setup.sh regardless of where called from; default files should be in the same directory
+# see https://stackoverflow.com/a/4774063/22510343 for explanation
+# shellcheck disable=SC2164
+SCRIPTPATH="$( cd -- "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 ; pwd -P )"
+
+DEPENDENCIES_FILE="${SCRIPTPATH}/.repos"
+PYTHON_REQS_FILE="${SCRIPTPATH}/requirements.txt"
+PYTHON_USE_VENV=false
+APT_PACKAGES_FILE="${SCRIPTPATH}/.pkglist"
+
+
 ###############################
-# Install Aravis
+# apt packages
+sudo apt-get update -qq
+
+
+if [[ ! -f $APT_PACKAGES_FILE ]]; then
+
+    echo "Specified APT_PACKAGES_FILE not found. Aborting."
+    echo "${APT_PACKAGES_FILE}"
+    exit 1
+
+fi
+
+
+if [[ ! -f $APT_PACKAGES_FILE ]]; then
+
+    echo "Specified APT_PACKAGES_FILE not found. Aborting."
+    echo "${APT_PACKAGES_FILE}"
+    exit 1
+
+fi
+
+# install all packages in the APT_PACKAGES_FILE.
+# grep will strip any lines starting with # (comments)
+# -r will prevent the apt-get call from being run at all if the file does not contain any non-whitespace characters.
+
+grep -e '^[^#]' "${APT_PACKAGES_FILE}" | xargs -r sudo apt-get install -y -qq --no-install-recommends
+
 ###############################
-
-echo "Installing Aravis 0.8.30..."
-ARAVIS_VERSION="0.8.30"
-sudo wget https://github.com/AravisProject/aravis/releases/download/${ARAVIS_VERSION}/aravis-${ARAVIS_VERSION}.tar.xz && \
-    sudo tar xfJ aravis-${ARAVIS_VERSION}.tar.xz && \
-    sudo rm aravis-${ARAVIS_VERSION}.tar.xz
-
-cd aravis-${ARAVIS_VERSION} && \
-    sudo meson setup build && \
-    cd build && \
-    sudo ninja && \
-    sudo ninja install && \
-    sudo ldconfig && \
-    cd ../.. && \
-    sudo rm -rf aravis-${ARAVIS_VERSION}
+# update the rosdep database
+rosdep -q update  --rosdistro "${TARGET_ROS_DISTRO}"
 
 ###############################
-# Install ScanCONTROL Linux SDK
-###############################
-echo "Installing ScanCONTROL Linux SDK 1.0.0..."
-SCANCONTROL_VERSION="1-0-0"
-sudo wget https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-${SCANCONTROL_VERSION}.zip -O scanCONTROL-Linux-SDK.zip && \
-    sudo unzip scanCONTROL-Linux-SDK.zip -d scanCONTROL-Linux-SDK/ && \
-    sudo rm scanCONTROL-Linux-SDK.zip
+# Python packages
 
-cd scanCONTROL-Linux-SDK/libmescan/ && \
-    sudo meson builddir && \
-    cd builddir && \
-    sudo ninja && \
-    sudo ninja install && \
-    sudo ldconfig && \
-    cd ../../..
+if [[ ! -f $PYTHON_REQS_FILE ]]; then
 
-cd scanCONTROL-Linux-SDK/libllt/include && \
-    sudo wget -q https://raw.githubusercontent.com/Pugens/scancontrol/1105de0ea8a28526b03de488d76821e07bada265/micro_epsilon_scancontrol_driver/include/lltlib/llt.h -O llt.h && \
-    cd .. && \
-    sudo meson builddir && \
-    cd builddir && \
-    sudo ninja && \
-    sudo ninja install && \
-    sudo ldconfig && \
-    cd ../../..
+    echo "Specified PYTHON_REQS_FILE not found. Aborting."
+    echo "${PYTHON_REQS_FILE}"
+    exit 1
 
-echo "Aravis and ScanCONTROL Linux SDK installation completed!"
+fi
+
+# Default image doesn't have .local/bin on the path, so add it
+export PATH="/home/ros/.local/bin:$PATH"
+echo "export PATH=\"/home/ros/.local/bin:\$PATH\"" >> "${DEV_ENV_SETTINGS_FILE}"
+
+# If true, install the requirements to a venv
+if [[ ${PYTHON_USE_VENV} == true ]]; then
+
+    # Remove previous existing venv
+    if [[ -d "${TARGET_WORKSPACE}"/venv ]]; then
+        rm -rf "${TARGET_WORKSPACE}"/venv
+    fi
+
+    virtualenv "${TARGET_WORKSPACE}"/venv
+    # shellcheck source=/dev/null
+    source "${TARGET_WORKSPACE}"/venv/bin/activate
+
+fi
+
+pip3 install -q -r "${PYTHON_REQS_FILE}"
