@@ -17,7 +17,7 @@ The following are the repositories that will be installed using `.repos`:
 - [`ferrobotics_acf`](https://github.com/Luka140/ferrobotics_acf/tree/humble): Controls the ACF
 - [`grinder_model`](https://github.com/panin-anan/grinder_model): Python script for training and evaluating predictive model with test data
 - [`bag_converter`](https://github.com/Luka140/bag_converter): Python script for postprocessing test data from rosbag into .csv data
-- [`rws_motion_client`](https://github.com/Luka140/rws_motion_client): Driver for the ABB robot.
+- [`rws_motion_client`](https://github.com/Luka140/rws_motion_client): Client node controlling ABB robot arm motion using the ABB robot driver: (`abb_ros2`).
 
 CAUTION: `rws_motion_client` is a repository for moving grinder on a robot, and for grinder on a robot, the following repositories also need to be checked out in moving-grinder branch: 
 `data_gathering`, `data_gathering_msgs`, `pcl_processing_ros2`, `grinder_model`, and `bag_converter`. For stationary grinding, exclude rws_motion_client from building.
@@ -29,12 +29,13 @@ The `requirement.txt` and `setup.sh` contains all dependencies required for all 
 - `ros-humble-rosbag2-storage-mcap`: Enabled MCAP storage format for rosbags
 - `open3d`: for pointcloud operations. Note that the used (and currently latest) version requires Numpy < 1.25. Used in `pcl_processing_ros2` and `lls_processing`.
 - `libsdl2-dev`: Simple DirectMedia Layer(SDL) 2.0 for keyboard repository
-- `keyboard_msgs`: keyboard ROS2 messages for UR trajectory recording. Used in `ur_trajectory_controller`
+- `keyboard_msgs`: keyboard ROS2 messages for UR trajectory recording. Used in `ur_trajectory_controller`. Installation instruction uses a fork created by Luka140
 - [`pyads`](https://github.com/stlehmann/pyads): A Python wrapper for TwinCAT ADS library. Used in `data_gathering`
 - [`concave_hull`](https://github.com/panin-anan/concave_hull): A Python library to calculate concave hulls. Used in `pcl_processing_ros2`
 - [`pyransac3d`](https://github.com/leomariga/pyRANSAC-3D): A python library for the RANSAC algorithm. Used in`pcl_processing_ros2`
+- `abb_ros2`: ABB robot ROS2 driver. Used in `rws_motion_client`
 
-Aside from above dependencies, the following third party packages are also required to be installed as dependencies by either using `setup_scancontrol.sh`
+Aside from above dependencies, the following third party packages are also required to be installed as dependencies by using `setup_scancontrol.sh` on your docker.
 
 - [`aravis 0.8.30`](https://github.com/AravisProject/aravis/releases/download/0.8.30/aravis-0.8.30.tar.xz)
 - [`scancontrol Linux SDK 1.0.0`](https://software.micro-epsilon.com/scanCONTROL-Linux-SDK-1-0-0.zip)
@@ -51,7 +52,8 @@ sudo apt-get install ros-humble-rosbag2-storage-mcap
 sudo apt-get install libsdl2-dev
 
 cd src
-git clone git@github.com:Luka140/ros2-keyboard.git
+git clone https://github.com/Luka140/ros2-keyboard.git
+git clone https://github.com/panin-anan/abb_ros2.git
 cd ..
 
 pip install pyads==3.4.2
