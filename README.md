@@ -121,7 +121,19 @@ ros2 launch ferrobotics_acf acf.launch.py
 ros2 launch micro_epsilon_scancontrol_driver load_driver.launch.py
 ```
 
-When all components are confirmed to be connectable, launch with data_gathering launch file with the following launch parameters:
+When all components are confirmed to be connectable to the actual hardware, launch with data_gathering launch file with the following launch parameters:
+
+Launch Parameters Example:
+sample = "sample_name_input" (String)
+plate_thickness = 0.002 (float, in meters)
+grit = 120 (float)
+belt_width = 0.025 (float, in meters)
+pass_length = 0.1 (float, in meters)
+force_settings = [5, 6, 7] (float 1D array, in Newtons)
+rpm_settings = [9500, 10000] (float 1D array, in rev/min)
+feed_rate_settings = [20, 30] (float 1D array, in mm/s)
+pass_count_settings [10, 15] (int 1D array)
+repeat_test_count = 1 (int)
 
 ```bash
 ros2 launch data_gathering data_gathering.launch.py
