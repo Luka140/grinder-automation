@@ -123,6 +123,9 @@ ros2 launch micro_epsilon_scancontrol_driver load_driver.launch.py
 
 When all components are confirmed to be connectable to the actual hardware, launch with data_gathering launch file with the following launch parameters:
 
+```bash
+ros2 launch data_gathering data_gathering.launch.py
+```
 Launch Parameters Example:
 - sample = "sample_name_input" (String)
 - plate_thickness = 0.002 (float, in meters)
@@ -133,11 +136,15 @@ Launch Parameters Example:
 - rpm_settings = [9500, 10000] (float 1D array, in rev/min)
 - feed_rate_settings = [20, 30] (float 1D array, in mm/s)
 - pass_count_settings [10, 15] (int 1D array)
-- repeat_test_count = 1 (int)
+- repeat_test_count = 1 (int, number of test repeat before scanning for volume removed)
+- all_setting_permutations = False (bool, permutate all possible setting from array if True, go by index if False)
+- initially_prime_new_belt = False (bool, prime belt before grinding)
+- wear_threshold = 5e7 (float, threshold before forcing to change grinding belt)
+- feed_rate_threshold = 45 (float, threshold for setting feed_rate_settings)
+- belt_wear_path = "src/data_gathering/data/belt_data/beltid_14_grit_120.csv" (String, path to belt wear tracking file .csv)
 
-```bash
-ros2 launch data_gathering data_gathering.launch.py
-```
+- motion_client node: 'grinder_spinup_duration' = 4 (float, waiting time before moving grinding belt to the first grind position)
+- acf_node: 'payload' = 2.0 (weight of the parts on acf (in kg), for gravity compensation)
 
 
 
